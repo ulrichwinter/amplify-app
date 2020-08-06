@@ -24,8 +24,16 @@ function App() {
     <div className="App">
       <h1>Hello from AWS Amplify</h1>
 
-      <input onChange={e => updateInputValues('limit', e.target.value)} placeholder="limit"/>
-      <input onChange={e => updateInputValues('start', e.target.value)} placeholder="start"/>
+      <input 
+        onChange={e => updateInputValues('limit', e.target.value)} 
+        placeholder="limit"
+        type="number"
+      />
+      <input 
+        onChange={e => updateInputValues('start', e.target.value)} 
+        placeholder="start"
+        type="number"
+      />
 
       <button onClick={fetchCoins}>Fetch Coins</button>
 

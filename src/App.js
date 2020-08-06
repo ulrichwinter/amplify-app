@@ -3,10 +3,16 @@ import { API } from 'aws-amplify'
 import './App.css';
 
 function App() {
+  const [input, updateInput] = useState({limit: 5, start: 0});
   const [coins, updateCoins] = useState([]);
 
+  function updateInputValues(type, value)
+  {
+    updateInput({...input, [type]: value});
+  }  
   async function fetchCoins() {
-    const data = await API.get('cryptoapi', '/coins')
+    const {limit, start} = input;
+    const data = await API.get('cryptoapi', `/coins?limit=${limit}&start=${start}`)
     updateCoins(data.coins);
   }
 
@@ -17,6 +23,11 @@ function App() {
   return (
     <div className="App">
       <h1>Hello from AWS Amplify</h1>
+
+      <input onChange={e => updateInputValues('limit', e.target.value)} placeholder="limit"/>
+      <input onChange={e => updateInputValues('start', e.target.value)} placeholder="start"/>
+
+      <button onClick={fetchCoins}>Fetch Coins</button>
 
       <h2>Available Cryptocurrencies</h2>
       {
